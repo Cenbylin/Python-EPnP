@@ -1,4 +1,4 @@
-PyDBoW3: Python wrapper of DBoW3 (bag-of-words library for C++ with generic descriptors).
+PyEPnP: Python wrapper of EPnP.
 
 Copyright (c) 2020 Ancheng Lin
 All rights reserved.

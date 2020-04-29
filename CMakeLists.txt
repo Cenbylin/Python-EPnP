@@ -26,10 +26,10 @@ SET(REQUIRED_LIBRARIES ${REQUIRED_LIBRARIES} ${OpenCV_LIBS})
 #   Find Dependencies -- python numpy
 # ----------------------------------------------------------------------------
 find_package(PythonLibs 3 REQUIRED)
-#find_package(pybind11 REQUIRED)
-include(Cmake/FindNumPy.cmake)
-#find_package(NumPy)
+include_directories(${PYTHON_INCLUDE_DIRS})
+SET(REQUIRED_LIBRARIES ${PYTHON_LIBRARIES})
 
+include(Cmake/FindNumPy.cmake)
 include_directories(${PYTHON_NUMPY_INCLUDE_DIR})
 
 # ----------------------------------------------------------------------------

@@ -39,12 +39,14 @@ include_directories(${PYTHON_NUMPY_INCLUDE_DIR})
 # ----------------------------------------------------------------------------
 include_directories(
         ${PROJECT_SOURCE_DIR}/src/DUtils/
+        ${PROJECT_SOURCE_DIR}/src/cv2pnp/
         ${PROJECT_SOURCE_DIR}/src/
 )
 SET(SOURCES
         ${PROJECT_SOURCE_DIR}/src/DUtils/Random.cpp
         ${PROJECT_SOURCE_DIR}/src/DUtils/Timestamp.cpp
         ${PROJECT_SOURCE_DIR}/src/PnPsolver.cpp
+        ${PROJECT_SOURCE_DIR}/src/cv2pnp/CV2PnPsolver.cpp
         )
 SET(SOURCE_PYBIND
         ${PROJECT_SOURCE_DIR}/src/pyepnp.cpp

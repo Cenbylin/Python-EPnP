@@ -1,12 +1,14 @@
 
-#ifndef PNPSOLVER_H
-#define PNPSOLVER_H
+#ifndef CV2PNPSOLVER_H
+#define CV2PNPSOLVER_H
 
 #include <opencv2/core.hpp>
 #include <vector>
+#include "PnPsolver.h"
 
 using namespace std;
 
+class PnPKeyPoint;
 /*
 PnPsolver 仅用于Tracking::Relocalization 函数中
 原本计划迁移本类中所有 opencv 1.0 的函数到 opencv 3.0
@@ -15,17 +17,18 @@ PnPsolver 仅用于Tracking::Relocalization 函数中
 原始代码看起来对相机位姿的重复多次优化，可以得到更好的位姿，此修改，做了类似的迭代求解，目前测试正常。
 */
 
-class PnPsolver {
+class CV2PnPsolver {
 public:
-    PnPsolver(const Frame &F, const vector<MapPoint *> &vpMapPointMatches);
+    CV2PnPsolver(vector<float> vLevelSigma2, float mfx, float mfy, float mcx, float mcy,
+              vector<PnPKeyPoint *> vpKp, vector<tuple<int, float, float, float>> mtPointMatches);
 
-    ~PnPsolver();
+    ~CV2PnPsolver();
 
-    cv::Mat iterate(int iterationsCount, bool &bNoMore, vector<bool> &vbInliers, int &nInliers);
+    tuple<cv::Mat, bool, vector<bool>, int> iterate(int iterationsCount);
 
 private:
     // cam
-    double fx, fy, cx, cy;
+    float fx, fy, cx, cy;
 
     // 2D Points
     vector<cv::Point2f> mvP2D;
@@ -51,4 +54,4 @@ private:
 
 };
 
-#endif //PNPSOLVER_H
+#endif //CV2PNPSOLVER_H

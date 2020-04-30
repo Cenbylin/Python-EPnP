@@ -65,7 +65,7 @@ class CMakeBuild(build_ext):
 
 setup(
     name='PyEPnP',
-    version='0.0.1',
+    version='0.0.3',
     author='Ancheng Lin',
     author_email='ancheng.lin@ieee.org',
     description='a simple binding of EPnP',

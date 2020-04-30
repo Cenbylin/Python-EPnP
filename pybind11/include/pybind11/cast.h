@@ -288,8 +288,8 @@ public:
         // Past-the-end iterator:
         iterator(size_t end) : curr(end) {}
     public:
-        bool operator==(const iterator &other) { return curr.index == other.curr.index; }
-        bool operator!=(const iterator &other) { return curr.index != other.curr.index; }
+        bool operator==(const iterator &other) const { return curr.index == other.curr.index; }
+        bool operator!=(const iterator &other) const { return curr.index != other.curr.index; }
         iterator &operator++() {
             if (!inst->simple_layout)
                 curr.vh += 1 + (*types)[curr.index]->holder_size_in_ptrs;
@@ -1886,6 +1886,11 @@ public:
     std::string type;
 #endif
 };
+
+/// \ingroup annotations
+/// Annotation indicating that all following arguments are keyword-only; the is the equivalent of an
+/// unnamed '*' argument (in Python 3)
+struct kwonly {};
 
 template <typename T>
 arg_v arg::operator=(T &&value) const { return {std::move(*this), std::forward<T>(value)}; }

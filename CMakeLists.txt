@@ -1,4 +1,6 @@
-cmake_minimum_required(VERSION 2.8.12)
+cmake_minimum_required(VERSION 3.0)
+set(CMAKE_CXX_STANDARD 11)
+
 project(PyEPnP)
 
 add_subdirectory(pybind11)
@@ -25,9 +27,9 @@ SET(REQUIRED_LIBRARIES ${REQUIRED_LIBRARIES} ${OpenCV_LIBS})
 # ----------------------------------------------------------------------------
 #   Find Dependencies -- python numpy
 # ----------------------------------------------------------------------------
-find_package(PythonLibs 3 REQUIRED)
-include_directories(${PYTHON_INCLUDE_DIRS})
-SET(REQUIRED_LIBRARIES ${PYTHON_LIBRARIES})
+#find_package(PythonLibs 3 REQUIRED)
+#include_directories(${PYTHON_INCLUDE_DIRS})
+#SET(REQUIRED_LIBRARIES ${PYTHON_LIBRARIES})
 
 include(Cmake/FindNumPy.cmake)
 include_directories(${PYTHON_NUMPY_INCLUDE_DIR})
@@ -36,18 +38,17 @@ include_directories(${PYTHON_NUMPY_INCLUDE_DIR})
 #   source
 # ----------------------------------------------------------------------------
 include_directories(
-        ${PROJECT_SOURCE_DIR}
         ${PROJECT_SOURCE_DIR}/src/DUtils/
         ${PROJECT_SOURCE_DIR}/src/
 )
 SET(SOURCES
-        ${CMAKE_CURRENT_SOURCE_DIR}/src/DUtils/Random.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/src/DUtils/Timestamp.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/src/PnPsolver.cpp
+        ${PROJECT_SOURCE_DIR}/src/DUtils/Random.cpp
+        ${PROJECT_SOURCE_DIR}/src/DUtils/Timestamp.cpp
+        ${PROJECT_SOURCE_DIR}/src/PnPsolver.cpp
         )
 SET(SOURCE_PYBIND
-        ${CMAKE_CURRENT_SOURCE_DIR}/src/pyepnp.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/src/ndarray_converter.cpp
+        ${PROJECT_SOURCE_DIR}/src/pyepnp.cpp
+        ${PROJECT_SOURCE_DIR}/src/ndarray_converter.cpp
         )
 
 

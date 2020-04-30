@@ -7,7 +7,8 @@
 #define PNPSOLVER_H
 
 #include <opencv2/core/core.hpp>
-#include <pybind11/stl.h>
+#include <opencv2/core/core_c.h>
+#include <opencv2/core.hpp>
 
 using namespace std;
 
@@ -42,7 +43,7 @@ public:
 class PnPsolver {
 public:
     PnPsolver(vector<float> vLevelSigma2, float fx, float fy, float cx, float cy,
-              vector<PnPKeyPoint *> vpKp, map<int, tuple<float, float, float>> vtMapPointMatches);
+              vector<PnPKeyPoint *> vpKp, vector<tuple<int, float, float, float>> vtMapPointMatches);
 
     ~PnPsolver();
 
@@ -82,7 +83,7 @@ private:
 
     void compute_barycentric_coordinates(void);
 
-    void fill_M(cv::Mat *M, const int row, const double *alphas, const double u, const double v);
+    void fill_M(CvMat *M, const int row, const double *alphas, const double u, const double v);
 
     void compute_ccs(const double *betas, const double *ut);
 
@@ -90,13 +91,13 @@ private:
 
     void solve_for_sign(void);
 
-    void find_betas_approx_1(const cv::Mat *L_6x10, const cv::Mat *Rho, double *betas);
+    void find_betas_approx_1(const CvMat *L_6x10, const CvMat *Rho, double *betas);
 
-    void find_betas_approx_2(const cv::Mat *L_6x10, const cv::Mat *Rho, double *betas);
+    void find_betas_approx_2(const CvMat *L_6x10, const CvMat *Rho, double *betas);
 
-    void find_betas_approx_3(const cv::Mat *L_6x10, const cv::Mat *Rho, double *betas);
+    void find_betas_approx_3(const CvMat *L_6x10, const CvMat *Rho, double *betas);
 
-    void qr_solve(cv::Mat *A, cv::Mat *b, cv::Mat *X);
+    void qr_solve(CvMat *A, CvMat *b, CvMat *X);
 
     double dot(const double *v1, const double *v2);
 
@@ -106,10 +107,10 @@ private:
 
     void compute_L_6x10(const double *ut, double *l_6x10);
 
-    void gauss_newton(const cv::Mat *L_6x10, const cv::Mat *Rho, double current_betas[4]);
+    void gauss_newton(const CvMat *L_6x10, const CvMat *Rho, double current_betas[4]);
 
     void compute_A_and_b_gauss_newton(const double *l_6x10, const double *rho,
-                                      double cb[4], cv::Mat *A, cv::Mat *b);
+                                      double cb[4], CvMat *A, CvMat *b);
 
     double compute_R_and_t(const double *ut, const double *betas,
                            double R[3][3], double t[3]);
@@ -131,8 +132,7 @@ private:
     double cws[4][3], ccs[4][3];
     double cws_determinant;
 
-//    vector<tuple<int, int, int>> mvtMapPointMatches;
-    int nKpNum;
+    vector<tuple<int, float, float, float>> mvpMapPointMatches;
 
     // 2D Points
     vector<cv::Point2f> mvP2D;

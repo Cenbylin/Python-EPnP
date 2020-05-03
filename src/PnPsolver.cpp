@@ -35,7 +35,6 @@ PnPsolver::PnPsolver(vector<float> vLevelSigma2, float fx, float fy, float cx, f
     mvKeyPointIndices.reserve(vpKp.size());
     mvAllIndices.reserve(vpKp.size());
     int idx = 0;
-    // vector[tuple(idx,x,y,z)]
     for (auto &tKpMp:mtPointMatches) {
         int i = get<0>(tKpMp);
 
@@ -47,7 +46,6 @@ PnPsolver::PnPsolver(vector<float> vLevelSigma2, float fx, float fy, float cx, f
         mvP2D.push_back(kp->pt);//存放到mvP2D容器
         mvSigma2.push_back(vLevelSigma2[kp->octave]);//记录特征点是在哪一层提取出来的
 
-        mvKeyPointIndices.push_back(i);//记录被使用特征点在原始特征点容器中的索引, mvKeyPointIndices是跳跃的
         mvAllIndices.push_back(idx);//记录被使用特征点的索引, mvAllIndices是连续的
 
         idx++;
@@ -175,9 +173,11 @@ tuple<cv::Mat, bool, vector<bool>, int> PnPsolver::iterate(int nIterations) {
                 nInliers = mnRefinedInliers;
                 vbInliers = vector<bool>(mvpMapPointMatches.size(), false);
                 for (int i = 0; i < N; i++) {
-                    if (mvbRefinedInliers[i])
-                        vbInliers[mvKeyPointIndices[i]] = true;
+                    if (mvbRefinedInliers[i]){
+                        vbInliers[i] = true;
+                    }
                 }
+
                 return make_tuple(mRefinedTcw.clone(), bNoMore, vbInliers, nInliers);
             }
 
@@ -190,9 +190,11 @@ tuple<cv::Mat, bool, vector<bool>, int> PnPsolver::iterate(int nIterations) {
             nInliers = mnBestInliers;
             vbInliers = vector<bool>(mvpMapPointMatches.size(), false);
             for (int i = 0; i < N; i++) {
-                if (mvbBestInliers[i])
-                    vbInliers[mvKeyPointIndices[i]] = true;
+                if (mvbBestInliers[i]){
+                    vbInliers[i] = true;
+                }
             }
+
             return make_tuple(mBestTcw.clone(), bNoMore, vbInliers, nInliers);
         }
     }

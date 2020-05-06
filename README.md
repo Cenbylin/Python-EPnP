@@ -15,7 +15,11 @@ This repo will consider supporting more general application scenarios.
 
 ## Installation
 
-Just clone this repository and pip install. Note the `--recursive` option which is
+```bash
+pip install PyEPnP
+```
+
+**Or** just clone this repository and pip install. Note the `--recursive` option which is
 needed for the pybind11 submodule:
 
 ```bash
@@ -24,9 +28,13 @@ cd ./Python-PyEPnP
 pip install .
 ```
 
-## Examples
+## Usage
 
-Examples are comming.
+```python
+import PyEPnP as pnp
+```
+
+more examples are comming 
 
 ## License
 

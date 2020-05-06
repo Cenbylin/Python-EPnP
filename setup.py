@@ -65,9 +65,10 @@ class CMakeBuild(build_ext):
 
 setup(
     name='PyEPnP',
-    version='0.0.3',
+    version='0.0.4',
     author='Ancheng Lin',
     author_email='ancheng.lin@ieee.org',
+    url='https://github.com/Cenbylin/Python-EPnP',
     description='a simple binding of EPnP',
     long_description='',
     ext_modules=[CMakeExtension('PyEPnP')],

@@ -8,7 +8,6 @@
 
 using namespace std;
 
-class PnPKeyPoint;
 /*
 PnPsolver 仅用于Tracking::Relocalization 函数中
 原本计划迁移本类中所有 opencv 1.0 的函数到 opencv 3.0
@@ -20,7 +19,7 @@ PnPsolver 仅用于Tracking::Relocalization 函数中
 class CV2PnPsolver {
 public:
     CV2PnPsolver(vector<float> vLevelSigma2, float mfx, float mfy, float mcx, float mcy,
-              vector<PnPKeyPoint *> vpKp, vector<tuple<int, float, float, float>> mtPointMatches);
+              vector<cv::KeyPoint> & vpKp, vector<tuple<int, float, float, float>> mtPointMatches);
 
     ~CV2PnPsolver();
 

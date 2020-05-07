@@ -18,7 +18,7 @@ using namespace std;
 // us表示图像坐标系下的2D点坐标
 // alphas为真实3D点用4个虚拟控制点表达时的系数
 PnPsolver::PnPsolver(vector<float> vLevelSigma2, float fx, float fy, float cx, float cy,
-                     vector<PnPKeyPoint *> vpKp, vector<tuple<int, float, float, float>> mtPointMatches) :
+                     vector<cv::KeyPoint> &vpKp, vector<tuple<int, float, float, float>> mtPointMatches) :
         pws(0), us(0), alphas(0), pcs(0), maximum_number_of_correspondences(0), number_of_correspondences(0),
         mnInliersi(0), mnIterations(0), mnBestInliers(0), N(0) {
     // 需要的东西
@@ -40,7 +40,7 @@ PnPsolver::PnPsolver(vector<float> vLevelSigma2, float fx, float fy, float cx, f
 
         mvP3Dw.push_back(cv::Point3f(get<1>(tKpMp), get<2>(tKpMp), get<3>(tKpMp)));
 
-        const PnPKeyPoint *kp = vpKp[i];//得到2维特征点, 将KeyPoint类型变为Point2f
+        const cv::KeyPoint *kp = &vpKp[i];//得到2维特征点, 将KeyPoint类型变为Point2f
 
 //        mvP2D 和 mvP3Dw 是一一对应的匹配点
         mvP2D.push_back(kp->pt);//存放到mvP2D容器

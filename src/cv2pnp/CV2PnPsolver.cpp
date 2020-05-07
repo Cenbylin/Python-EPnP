@@ -10,7 +10,7 @@
 #include "DUtils/Random.h"
 #include "CV2PnPsolver.h"
 CV2PnPsolver::CV2PnPsolver(vector<float> vLevelSigma2, float mfx, float mfy, float mcx, float mcy,
-                     vector<PnPKeyPoint *> vpKp, vector<tuple<int, float, float, float>> mtPointMatches) :
+                     vector<cv::KeyPoint> &vpKp, vector<tuple<int, float, float, float>> mtPointMatches) :
         mnCurrentIterationsCount(0) {
     // 预先分配空间
     mvP2D.reserve(vpKp.size());
@@ -20,7 +20,7 @@ CV2PnPsolver::CV2PnPsolver(vector<float> vLevelSigma2, float mfx, float mfy, flo
     for (auto &tKpMp:mtPointMatches) {
         int i = get<0>(tKpMp);
         mvP3Dw.push_back(cv::Point3f(get<1>(tKpMp), get<2>(tKpMp), get<3>(tKpMp)));
-        const PnPKeyPoint *kp = vpKp[i];//得到2维特征点, 将KeyPoint类型变为Point2f
+        const cv::KeyPoint *kp = &vpKp[i];//得到2维特征点, 将KeyPoint类型变为Point2f
 //        mvP2D 和 mvP3Dw 是一一对应的匹配点
         mvP2D.push_back(kp->pt);//存放到mvP2D容器
     }

@@ -12,38 +12,11 @@
 
 using namespace std;
 
-
-class PnPKeyPoint {
-public:
-    float angle;
-    cv::Point2f pt;
-    int class_id;
-    int octave;
-    float response;
-    float size;
-
-    PnPKeyPoint(float angle, tuple<float, float> tpt, float response, float size = 31, int class_id = -1, int octave = 0) :
-            angle(angle), response(response), size(size), class_id(class_id), octave(octave) {
-        pt.x = get<0>(tpt);
-        pt.y = get<1>(tpt);
-    };
-
-    PnPKeyPoint(){
-        // for test
-    }
-    cv::Mat test(){
-        return cv::Mat();
-    }
-
-    ~ PnPKeyPoint() {
-
-    };
-};
-
 class PnPsolver {
 public:
+
     PnPsolver(vector<float> vLevelSigma2, float fx, float fy, float cx, float cy,
-              vector<PnPKeyPoint *> vpKp, vector<tuple<int, float, float, float>> vtMapPointMatches);
+              vector<cv::KeyPoint> &vpKp, vector<tuple<int, float, float, float>> vtMapPointMatches);
 
     ~PnPsolver();
 
